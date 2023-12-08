@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="Registrar Usuario" showEffect="fade" modal="true"
+		widgetVar="dialogRegistrarUsuario" responsive="true"
+		blockScroll="true">
+		<p:panelGrid id="dialogRegistrarUsuarioContent" class="ui-fluid"
+			columns="4">
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Nombre:" />
+				<p:inputText id="nombreRegistro" placeholder="Nombre"
+					value="#{gestionListaUsuarios.usuarioNuevo.nombre}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Apellido:" />
+				<p:inputText id="apellidoRegistro" placeholder="Apellido"
+					value="#{gestionListaUsuarios.usuarioNuevo.apellido}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Documento:" />
+				<p:inputText id="ciRegistro" placeholder="Documento de identidad"
+					value="#{gestionListaUsuarios.usuarioNuevo.documento}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Fecha de Nacimiento:" />
+				<p:datePicker class="calendar" id="fechaNacRegistro" locale="es"
+					placeholder="Fecha de nacimiento" monthNavigator="true"
+					yearNavigator="true" yearRange="#{gestionListaUsuarios.yearRange}"
+					value="#{gestionListaUsuarios.usuarioNuevo.fechaNacimiento}">
+
+					<p:autoUpdate />
+				</p:datePicker>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="eMail:" />
+				<p:inputText id="mailRegistro" placeholder="Correo personal"
+					value="#{gestionListaUsuarios.usuarioNuevo.mail}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="eMail Institucional:" />
+				<p:inputText id="mail_instRegistro"
+					placeholder="Correo institucional"
+					value="#{gestionListaUsuarios.usuarioNuevo.mailInstitucional}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Teléfono:" />
+				<p:inputText id="telefonoRegistro" placeholder="Teléfono"
+					value="#{gestionListaUsuarios.usuarioNuevo.telefono}">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Género:" />
+				<p:selectOneMenu id="generoRegistro" placeholder="Genero"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.usuarioNuevo.genero}">
+
+					<f:selectItem itemValue="#{null}" itemLabel="Genero" />
+					<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+					<f:selectItem itemValue="FEMENINO" itemLabel="Femenino" />
+					<f:selectItem itemValue="OTRO" itemLabel="Otro" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Tipo de usuario:" />
+				<p:selectOneMenu id="tipoUsuarioRegistro"
+					placeholder="Tipo de Usuario" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.usuarioNuevo.tipoUsuario}">
+
+					<f:selectItem itemValue="#{null}" itemLabel="Tipo de usuario" />
+					<f:selectItem itemValue="ANALISTA" itemLabel="Analista" />
+					<f:selectItem itemValue="ESTUDIANTE" itemLabel="Estudiante" />
+					<f:selectItem itemValue="TUTOR" itemLabel="Tutor" />
+					<p:ajax event="change"
+						listener="#{gestionListaUsuarios.menuItemChanged(gestionListaUsuarios.usuarioNuevo.tipoUsuario)}"
+						update="opsTutoresRegistro1 opsTutoresRegistro2 opsEstudiantesRegistro"
+						ignoreAutoUpdate="true" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="ITR:" />
+				<p:selectOneMenu id="itrRegistro" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idItrSeleccionado}" autoWidth="false">
+					<f:selectItem itemValue="#{-1}" itemLabel="ITR" />
+					<f:selectItems value="#{gestionListaUsuarios.cargarListaItr()}"
+						var="itr" itemLabel="#{itr.nombre}" itemValue="#{itr.idItr}" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Departamento:" />
+				<p:selectOneMenu id="departamentoRegistro"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idDepartamentoSeleccionado}"
+					autoWidth="false">
+					<f:selectItem itemValue="#{-1}" itemLabel="Departamento" />
+					<f:selectItems
+						value="#{gestionListaUsuarios.cargarListaDepartamento()}"
+						var="departamento" itemLabel="#{departamento.nombre}"
+						itemValue="#{departamento.idDepartamento}" />
+					<p:ajax listener="#{gestionListaUsuarios.cargarListaLocalidades()}"
+						update="localidadRegistro panelLocalidadesRegistro"
+						ignoreAutoUpdate="true" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup id="panelLocalidadesRegistro">
+				<p:outputLabel for="@next" value="Localidad:"
+					rendered="#{gestionListaUsuarios.verComboLocalidades}" />
+				<p:selectOneMenu id="localidadRegistro"
+					rendered="#{gestionListaUsuarios.verComboLocalidades}"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idLocalidadSeleccionada}"
+					autoWidth="false">
+					<f:selectItem itemValue="#{-1}" itemLabel="Localidad" />
+					<f:selectItems value="#{gestionListaUsuarios.listaLocalidades}"
+						var="localidad" itemLabel="#{localidad.nombre}"
+						itemValue="#{localidad.idLocalidad}" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Contraseña:" />
+				<p:password id="contraseniaRegistro" placeholder="Contraseña"
+					toggleMask="true"
+					value="#{gestionListaUsuarios.usuarioNuevo.contrasenia}" />
+			</h:panelGroup>
+
+			<h:panelGroup id="opsEstudiantesRegistro">
+
+				<p:outputLabel for="@next" value="Año de ingreso:"
+					rendered="#{gestionListaUsuarios.renderInputEstudiante}" />
+				<p:selectOneMenu id="añoIngresoRegistro" styleClass="anchoComboBox"
+					placeholder="Seleccione el Año de ingreso" filter="true"
+					filterMatchMode="startsWith" autoWidth="false"
+					value="#{gestionListaUsuarios.estudianteNuevo.añoIngreso}"
+					rendered="#{gestionListaUsuarios.renderInputEstudiante}">
+
+					<f:selectItem itemValue="" itemLabel="Año de ingreso" />
+					<f:selectItems var="año" itemLabel="#{año}" itemValue="#{año}"
+						value="#{gestionListaUsuarios.cargarListaAños()}" />
+					<p:autoUpdate />
+
+
+				</p:selectOneMenu>
+
+
+				<h:panelGroup id="opsTutoresRegistro1">
+
+					<p:outputLabel for="@next" value="Área de trabajo:"
+						rendered="#{gestionListaUsuarios.renderInputTutor}" />
+					<p:selectOneMenu id="areaTutorRegistro"
+						placeholder="Area de trabajo" styleClass="anchoComboBox"
+						value="#{gestionListaUsuarios.tutorNuevo.area}"
+						rendered="#{gestionListaUsuarios.renderInputTutor}">
+
+						<f:selectItem itemValue="#{null}" itemLabel="Area" />
+						<f:selectItem itemValue="Programacion" itemLabel="Programación" />
+						<f:selectItem itemValue="Base de datos" itemLabel="Base de datos" />
+						<f:selectItem itemValue="Testing" itemLabel="Testing" />
+						<f:selectItem itemValue="Infraestructura"
+							itemLabel="Infraestructura" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+
+
+
+
+			<h:panelGroup id="opsTutoresRegistro2">
+
+				<p:outputLabel for="@next" value="Rol:"
+					rendered="#{gestionListaUsuarios.renderInputTutor}" />
+				<p:selectOneMenu id="rolTutorRegistro" placeholder="Rol en el Area"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.tutorNuevo.rolTutor}"
+					rendered="#{gestionListaUsuarios.renderInputTutor}">
+
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione un Rol" />
+					<f:selectItem itemValue="ENCARGADO" itemLabel="Encargado" />
+					<f:selectItem itemValue="TUTOR" itemLabel="Tutor" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+
+			</h:panelGroup>
+
+
+
+		</p:panelGrid>
+
+		<f:facet name="footer">
+			<p:commandButton value="Registrar" icon="pi pi-check"
+				action="#{gestionListaUsuarios.registrarUsuario()}"
+				update="dialogRegistrarUsuarioContent :seccion_lista_usuarios:growl :seccion_lista_usuarios:usuarios"
+				process="dialogRegistrarUsuarioContent @this" />
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogRegistrarUsuario').hide()"
+				action="#{gestionListaUsuarios.limpiarCampos()}"
+				class="ui-button-secondary" type="button" />
+		</f:facet>
+	</p:dialog>
+</ui:composition>

@@ -1,0 +1,76 @@
+@charset "ISO-8859-1";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: 'Nunito', sans-serif;
+}
+
+body {
+	/* background-image: url(img/FGM_UTEC_222.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; */
+	background: #15212a;
+}
+
+.main {
+	width: 100%;
+	padding: 20px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.contenedor__todo{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+.caja__trasera {
+	width: 100%;
+	padding: 0px 110px;
+	display: flex;
+	justify-content: flex-start;
+	-webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); 
+	background-color: rgba(162, 6, 6, 0.5);
+}
+
+.caja__trasera div {
+	margin: 100px 40px;
+	color: white;
+	transition: all 500ms;
+}
+
+.caja__trasera div p, .caja__trasera .button {
+	margin-top: 30px;
+}
+
+.caja__trasera div h3 {
+	font-weight: 400;
+	font-size: 26px;
+}
+
+.caja__trasera .button {
+	padding: 10px 40px;
+	border: 2px solid #fff;
+	font-size: 14px;
+	background: transparent;
+	font-weight: 600;
+	cursor: pointer;
+	color: white;
+	outline: none;
+	transition: all 300ms;
+}
+
+.caja__trasera .button:hover {
+	background: #fff;
+	color: #46A2FD;
+}

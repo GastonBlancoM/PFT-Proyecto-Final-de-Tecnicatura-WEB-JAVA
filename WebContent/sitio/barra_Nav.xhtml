@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:submenu label="#{navController.nomUsuLogueado}">
+		<p:menuitem value="Mi perfil" icon="pi pi-fw pi-id-card" action="/sitio/general/perfil/PerfilUser.xhtml?faces-redirect=true"/>
+	</p:submenu>
+
+	<p:submenu label="Usuarios" icon="pi pi-fw pi-user" rendered="#{navController.analista}">
+		<p:menuitem value="Lista de usuarios" icon="pi pi-fw pi-list" action="/sitio/analista/listaUsuarios.xhtml?faces-redirect=true"/>
+	</p:submenu>
+
+	<p:submenu label="ITR's" icon="pi pi-fw pi-building" rendered="#{navController.analista}">
+		<p:menuitem value="Lista ITR's" icon="pi pi-fw pi-list" action="/sitio/analista/listaITR's.xhtml?faces-redirect=true"/>
+	</p:submenu>
+
+	<p:submenu label="Eventos" icon="pi pi-fw pi-calendar" >
+		<p:menuitem value="Lista de eventos" icon="pi pi-fw pi-list" action="/sitio/analista/listaEventos.xhtml?faces-redirect=true" rendered="#{not navController.estudiante}"/>
+		<p:menuitem value="Convocatorias" icon="pi pi-fw pi-pencil" action="/sitio/analista/listaConvocatorias.xhtml?faces-redirect=true"/>
+		<p:menuitem value="Mant. Tipo evento" icon="pi pi-fw pi-wrench" rendered="#{navController.analista}"/>
+	</p:submenu>
+
+	<p:submenu label="Justificaciones" icon="pi pi-fw 
+pi-align-left" >
+		<p:menuitem value="Lista de Justificaciones" icon="pi pi-fw pi-list" action="/sitio/analista/listaJustificaciones.xhtml?faces-redirect=true"/>
+		
+	</p:submenu>
+
+
+</ui:composition>

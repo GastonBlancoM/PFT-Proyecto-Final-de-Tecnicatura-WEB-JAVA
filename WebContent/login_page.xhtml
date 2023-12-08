@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>UTEC - Login</title>
+	<h:outputStylesheet library="css" name="style_Login.css" />
+</h:head>
+<body>
+	<section>
+	<div class="contenedor__login">
+
+		<div class="contenedor_logo_utec">
+			<h:graphicImage
+				value="/resources/img/logoUTEC-simbolo-color-blanco.png"
+				styleClass="img_logo_utec" />
+
+		</div>
+
+		<h:form id="formulario__login" class="formulario__login">
+			<h2>Iniciar Sesión</h2>
+
+			<div class="input_contenedor">
+				<p:inputText id="nombreUsuario" placeholder="Nombre de Usuario"
+					value="#{gestionAutenticacion.nombreUsuarioLogin}"></p:inputText>
+
+			</div>
+
+			<div class="input_contenedor">
+				<p:password id="contrasenia" class="campo" placeholder="Contraseña"
+					toggleMask="true" value="#{gestionAutenticacion.contraseniaLogin}"></p:password>
+			</div>
+
+			<p:commandButton class="button" value="Entrar"
+				action="#{gestionAutenticacion.login()}" update="formulario__login">
+
+			</p:commandButton>
+			<div class="op_registrar">
+				<p>
+					¿No tienes una cuenta?
+					<h:commandLink value="Regístrate"
+						action="#{navController.irRegistro()}"></h:commandLink>
+				</p>
+
+
+			</div>
+		</h:form>
+	</div>
+	</section>
+</body>
+</html>

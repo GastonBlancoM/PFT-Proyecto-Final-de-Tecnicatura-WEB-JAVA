@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="Modificar Usuario" showEffect="fade" modal="true"
+		widgetVar="dialogModificarUsuario" responsive="true">
+		<p:panelGrid id="dialogModificarUsuarioContent" class="ui-fluid"
+			columns="4">
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Nombre:" />
+				<p:inputText id="nombre"
+					value="#{gestionListaUsuarios.usuarioNuevo.nombre}"
+					placeholder="Nombre" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Apellido:" />
+				<p:inputText id="apellido"
+					value="#{gestionListaUsuarios.usuarioNuevo.apellido}"
+					placeholder="Apellido" class="campo" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Documento:" />
+				<p:inputText class="campo" id="ci"
+					placeholder="Documento de identidad"
+					value="#{gestionListaUsuarios.usuarioNuevo.documento}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Fecha de Nacimiento:" />
+				<p:datePicker class="calendar" id="fechaNac"
+					placeholder="Fecha de nacimiento" monthNavigator="true"
+					yearNavigator="true"
+					yearRange="#{gestionListaUsuarios.anioParaCalendario()}"
+					value="#{gestionListaUsuarios.usuarioNuevo.fechaNacimiento}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="eMail:" />
+				<p:inputText class="campo" id="email" placeholder="Mail personal"
+					value="#{gestionListaUsuarios.usuarioNuevo.mail}"></p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="eMail Institucional:" />
+				<p:inputText class="campo" id="mailInstitucional"
+					placeholder="Mail institucional"
+					value="#{gestionListaUsuarios.usuarioNuevo.mailInstitucional}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Teléfono:" />
+				<p:inputText class="campo" id="telefono" placeholder="Teléfono"
+					value="#{gestionListaUsuarios.usuarioNuevo.telefono}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Género:" />
+				<p:selectOneMenu id="genero" placeholder="Genero del usuario"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.usuarioNuevo.genero}">
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione un Genero" />
+					<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+					<f:selectItem itemValue="FEMENINO" itemLabel="Femenino" />
+					<f:selectItem itemValue="OTRO" itemLabel="Otro" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="ITR:" />
+				<p:selectOneMenu id="itr" placeholder="ITR"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idItrSeleccionado}">
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione un ITR" />
+					<f:selectItems value="#{gestionListaUsuarios.cargarListaItr()}"
+						var="itr" itemValue="#{itr.idItr}" itemLabel="#{itr.nombre}" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Estado del usuario:" />
+				<p:selectOneMenu id="estadoUsuario" placeholder="Estado de Usuario"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.usuarioNuevo.estadoUsuario}">
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione un Estado" />
+					<f:selectItem itemValue="ACTIVO" itemLabel="Activo" />
+					<f:selectItem itemValue="INACTIVO" itemLabel="Inactivo" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Verificación:" />
+				<p:selectOneMenu id="verificacion"
+					placeholder="Verificación de Usuario" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.usuarioNuevo.verificacion}">
+					<f:selectItem itemValue="#{null}"
+						itemLabel="Seleccione la Verificación" />
+					<f:selectItem itemValue="VERIFICADO" itemLabel="Verificado" />
+					<f:selectItem itemValue="NO_VERIFICADO" itemLabel="No verificado" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Departamento:" />
+				<p:selectOneMenu id="departamento" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idDepartamentoSeleccionado}"
+					autoWidth="false">
+					<f:selectItem itemValue="#{null}"
+						itemLabel="Seleccione el Departamento" />
+					<f:selectItems
+						value="#{gestionListaUsuarios.cargarListaDepartamento()}"
+						var="departamento" itemValue="#{departamento.idDepartamento}"
+						itemLabel="#{departamento.nombre}" />
+					<p:ajax
+						listener="#{gestionListaUsuarios.cargarListaLocalidades()}"
+						update="localidad panelLocalidades" ignoreAutoUpdate="true" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup id="panelLocalidades">
+				<p:outputLabel for="@next" value="Localidad:" />
+				<p:selectOneMenu id="localidad" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.idLocalidadSeleccionada}"
+					autoWidth="false">
+					<f:selectItem itemValue="#{-1}" itemLabel="Seleccione la Localidad" />
+					<f:selectItems value="#{gestionListaUsuarios.listaLocalidades}"
+						var="localidad" itemValue="#{localidad.idLocalidad}"
+						itemLabel="#{localidad.nombre}" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup id="panelEstudiante1"
+				rendered="#{gestionListaUsuarios.vistaEstudiante}">
+				<p:outputLabel for="@next" value="Estado:" />
+				<p:selectOneMenu id="estadoEstudiante"
+					placeholder="Estado del estudiante" styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.estudianteNuevo.estadoEstudiante}">
+					<f:selectItem itemValue="#{null}"
+						itemLabel="Seleccione el Estado del estudiante" />
+					<f:selectItem itemValue="MATRICULADO" itemLabel="Matriculado" />
+					<f:selectItem itemValue="NO_MATRICULADO" itemLabel="No matriculado" />
+					<f:selectItem itemValue="CONGELADO" itemLabel="Congelado" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup id="panelEstudiante2"
+				rendered="#{gestionListaUsuarios.vistaEstudiante}">
+
+				<p:outputLabel for="@next" value="Año de ingreso:" />
+				<p:selectOneMenu id="añoIngreso" styleClass="anchoComboBox"
+					placeholder="Año de ingreso"
+					value="#{gestionListaUsuarios.estudianteNuevo.añoIngreso}"
+					filter="true" filterMatchMode="startsWith" autoWidth="false">
+					<f:selectItem itemValue="" itemLabel="Año de ingreso" />
+					<f:selectItems value="#{gestionUsuario.cargarListaAños()}"
+						var="año" itemLabel="#{año}" itemValue="#{año}" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+
+			</h:panelGroup>
+
+
+
+			<h:panelGroup id="panelTutor1"
+				rendered="#{gestionListaUsuarios.vistaTutor}">
+				<p:outputLabel for="@next" value="Área de trabajo:"/>
+				<p:selectOneMenu id="areaTutor" placeholder="Área"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.tutorNuevo.area}">
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione el Area" />
+					<f:selectItem itemValue="Programación" itemLabel="Programacion" />
+					<f:selectItem itemValue="Base de datos" itemLabel="Base de datos" />
+					<f:selectItem itemValue="Testing" itemLabel="Testing" />
+					<f:selectItem itemValue="Infraestructura"
+						itemLabel="Infraestructura" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup id="panelTutor2"
+				rendered="#{gestionListaUsuarios.vistaTutor}">
+				
+				<p:outputLabel for="@next" value="Rol:" />
+				<p:selectOneMenu id="rolTutor" placeholder="Rol"
+					styleClass="anchoComboBox"
+					value="#{gestionListaUsuarios.tutorNuevo.rolTutor}">
+					<f:selectItem itemValue="#{null}" itemLabel="Rol en el área" />
+					<f:selectItem itemValue="ENCARGADO" itemLabel="Encargado" />
+					<f:selectItem itemValue="TUTOR" itemLabel="Tutor" />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+		</p:panelGrid>
+
+		<f:facet name="footer">
+			<p:commandButton value="Guardar" icon="pi pi-check"
+				action="#{gestionListaUsuarios.modificarUsuario()}"
+				update="dialogModificarUsuarioContent :seccion_lista_usuarios:growl :seccion_lista_usuarios:usuarios"
+				process="dialogModificarUsuarioContent @this" />
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogModificarUsuario').hide()"
+				action="#{gestionListaUsuarios.limpiarCampos()}"
+				class="ui-button-secondary" type="button" />
+		</f:facet>
+	</p:dialog>
+</ui:composition>

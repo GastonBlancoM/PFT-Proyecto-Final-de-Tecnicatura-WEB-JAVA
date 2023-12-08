@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dialog id="dialogModificarConvocatoria" header="Modificar Convocatoria"
+		showEffect="fade" modal="true" widgetVar="dialogModificarConvocatoria"
+		responsive="true" blockScroll="true" draggable="false">
+
+		<p:panelGrid id="dialogModificarConvocatoriaContent" class="ui-fluid"
+			columns="1">
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Asistencia al evento:" />
+				<p:inputText id="tituloConvocatoria"
+					value="#{gestionConvocatoria.convocatoriaSeleccionada.evento.titulo}" disabled="true">
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Asistencia" />
+				<p:selectOneMenu id="tipoAsistencia" styleClass="anchoComboBox"
+					value="#{gestionConvocatoria.convocatoriaSeleccionada.tipoAsistencia}">
+
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccionar asistencia" />
+					<f:selectItem itemValue="ASISTENCIA" itemLabel="Asistencia" />
+					<f:selectItem itemValue="AUSENCIA"
+						itemLabel="Ausencia" />
+					<f:selectItem itemValue="AUSENCIA_JUSTIFICADA" itemLabel="Ausencia justificada" />
+					<f:selectItem itemValue="MEDIA_ASISTENCIA_AUSENCIA"
+						itemLabel="Media asistencia ausencia" />
+					<f:selectItem itemValue="MEDIA_ASISTENCIA_MATUTINA" itemLabel="Media asistencia matutina" />
+					<f:selectItem itemValue="MEDIA_ASISTENCIA_VESPERTINA"
+						itemLabel="Media asistencia vespertina" />
+					<p:autoUpdate />
+
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Calificación" />
+				<p:spinner id="calificaciónConvocatoria"
+					value="#{gestionConvocatoria.convocatoriaSeleccionada.calificacion}" min="1"
+					max="5" rotate="true" modifyValueOnWheel="false" stepFactor="0.05">
+
+					<p:autoUpdate />
+				</p:spinner>
+			</h:panelGroup>
+
+		</p:panelGrid>
+		<f:facet name="footer">
+			<p:commandButton value="Aplicar cambios" icon="pi pi-check"
+				action="#{gestionConvocatoria.updateConvocatoria()}">
+				<p:confirm icon="pi pi-info-circle" header="Confirmación"
+					message="Deseas aplicar los cambios?" />
+				</p:commandButton>
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogModificarConvocatoria').hide()"
+				action="#{gestionConvocatoria.limpiarCampos()}"
+				class="ui-button-secondary" type="button" />
+		</f:facet>
+	</p:dialog>
+	
+
+</ui:composition>

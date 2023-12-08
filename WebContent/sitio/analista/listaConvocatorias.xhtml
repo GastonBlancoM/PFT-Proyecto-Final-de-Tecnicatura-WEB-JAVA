@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/sitio/template_General.xhtml">
+
+	<ui:define name="main_content">
+		<div class="main" style="z-index: 1;">
+
+			<h:form styleClass="seccion_lista_convocatorias seccion_lista"
+				id="seccion_lista_convocatorias">
+				<p:growl id="growl" showDetail="true" style="z-index: 1;" /> 
+				<h2>Convocatorias a eventos</h2>
+				<br />
+				<br />
+				<div>
+					<ui:include src="/sitio/general/convocatorias/dataTable_Convocatorias.xhtml" />
+				</div>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					responsive="true" width="350">
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no ui-button-flat" />
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" />
+				</p:confirmDialog>
+			</h:form>
+			<h:form id="dialogs"> 
+			<ui:include src="/sitio/general/convocatorias/dialogModificar.xhtml" />
+			<ui:include src="/sitio/general/justificaciones/dialogRegistrar.xhtml"/>
+			</h:form>
+
+		</div>
+	</ui:define>
+</ui:composition>

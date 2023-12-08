@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<!-- <h:outputStylesheet library="css" name="hojaDeEstilos_Menues.css"/> -->
+	<link rel="Stylesheet" href="recursos_grafic/css/hojaEstilos_Menues.css" />
+	<script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous" />
+	<title>Menu</title>
+
+</h:head>
+<h:body>
+	<!-- HEADER -->
+	<div class="header">
+		<h:form>
+			<p:growl id="messages" />
+
+
+			<p:menubar>
+				<p:menuitem>
+					<h:graphicImage value="/img/09-Isotipo-Cyan-logo.png"
+						title="Inicio" />
+				</p:menuitem>
+
+				<p:divider layout="vertical" />
+				
+				<ui:include src="/templates/nav_Analista.xhtml" />
+
+				<f:facet name="options">
+					<p:button value="Logout" icon="pi pi-fw pi-sign-out"
+						styleClass="ui-button-info" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+
+	<!-- MAIN -->
+	<ui:insert name="main_content" />
+
+
+
+	<!-- FOOTER -->
+	<ui:include src="/templates/sec_Footer.xhtml" />
+
+
+
+
+</h:body>
+</html>

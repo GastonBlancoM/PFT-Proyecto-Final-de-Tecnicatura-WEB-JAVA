@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dataTable id="convocatoriaDataTable" var="convocatoria"
+		value="#{gestionConvocatoria.listaConvocatoria}"
+		widgetVar="lista_convocatorias"
+		emptyMessage="No se encontraron Convocatorias a Eventos"
+		globalFilterFunction="#{gestionConvocatoria.globalFilterFunctionJustificacion()}"
+		sortBy="#{convocatoria.evento.titulo}" scrollable="true"
+		scrollHeight="800" order="1" editable="true"
+		rowKey="#{convocatoria.idConvocatoria}"
+		><!-- selection="#{gestionJustificacion.selectConvocatoria}" selectionMode="single" -->
+
+
+		<f:facet name="header">
+			<div class="flex justify-content-end"
+				style="display: flex; justify-content: space-between;">
+				
+				<!-- <p:inputText id="globalFilter"
+					onkeyup="PF('lista_convocatorias').filter()"
+					style="width:300px" placeholder="Buscar" /> -->
+				
+				<p:commandButton title="Actualizar" icon="pi pi-refresh"
+					style="margin-left:auto; margin-right: 10px;"
+					styleClass="rounded-button ui-button-outlined" 
+					action="#{gestionConvocatoria.onRefresh()}"/>
+					
+				
+				<p:autoUpdate />
+			</div>
+		</f:facet>
+
+
+		<p:headerRow field="evento.titulo" expandable="true"
+			expanded="#{false}">
+
+			<p:column colspan="6">
+				<!-- <div class="inline-flex align-items-center"
+					style="vertical-align: middle"> -->
+					
+					<h:outputText styleClass="ml-2"
+						value="#{convocatoria.evento.titulo}" />
+				<!-- </div> -->
+			</p:column>
+		</p:headerRow>
+
+		<p:column headerText="Evento">
+			<h:outputText value="#{convocatoria.evento.titulo}" />
+		</p:column>
+
+		<p:column headerText="Estudiante">
+			<h:outputText value="#{convocatoria.estudiante.nombreUsuario}" />
+		</p:column>
+
+		<p:column headerText="Documento"
+			sortBy="#{convocatoria.estudiante.documento}"
+			rendered="#{navController.analista}">
+			<h:outputText value="#{convocatoria.estudiante.documento}" />
+		</p:column>
+
+		<p:column headerText="Asistencia">
+			<h:outputText style="vertical-align: middle; margin-left: .5rem"
+				value="#{convocatoria.tipoAsistencia.nombre}" />
+		</p:column>
+
+		<p:column headerText="Calificacion">
+			<h:outputText value="#{convocatoria.calificacion}" />
+		</p:column>
+
+		<p:column exportable="false" style="width:85px;">
+			<!-- MODIFICAR-->
+			<p:commandButton icon="pi pi-file-edit"
+				action="#{gestionConvocatoria.seleccionarConvocatoria(convocatoria)}"
+				oncomplete="PF('dialogModificarConvocatoria').show()"
+				update=":dialogs:dialogModificarConvocatoriaContent"
+				styleClass="rounded-button ui-button-outlined"
+				rendered="#{navController.analista}"
+				style="margin-right: 5px;">
+			</p:commandButton>
+			
+			<!-- BAJA-->
+			<p:commandButton icon="pi pi-times"
+				action="#{gestionConvocatoria.deleteConvocado(convocatoria.idConvocatoria)}"
+				styleClass="rounded-button ui-button-danger ui-button-outlined"
+				rendered="#{navController.analista}">
+				<p:confirm icon="pi pi-info-circle" header="Confirmación"
+					message="Deseas eliminar al estudiante: #{convocatoria.estudiante.nombreUsuario} de la convocatoria?" />
+			</p:commandButton>
+			
+			<!-- INICIAR JUSTIFICACION-->
+			<p:commandButton icon="pi pi-list"
+				action="#{gestionJustificacion.seleccionarConvocatoria(convocatoria)}"
+				oncomplete="PF('dialogRegistrarJustificacion').show()"
+				styleClass="rounded-button ui-button-danger ui-button-outlined"
+				
+				rendered="#{navController.estudiante}">
+				</p:commandButton><!-- update=":dialogs:dialogRegistrarJustificacionContent" -->
+		</p:column>
+		
+		
+		
+		
+		<p:summaryRow>
+			<p:column colspan="5" style="text-align:right">
+				<h:outputText value="Total Convocados:" rendered="#{navController.analista}"/>
+			</p:column>
+			<p:column>
+				<h:outputText
+					value="#{gestionConvocatoria.getTotalCount(convocatoria.evento.titulo)}" rendered="#{navController.analista}"/>
+			</p:column>
+		</p:summaryRow>
+	</p:dataTable>
+	
+	<!-- <p:contextMenu for="convocatoriaDataTable">
+		<p:menuitem value="Iniciar justificación"  icon="pi pi-search"
+			oncomplete="PF('dialogRegistrarJustificacion').show()"/>
+		
+	</p:contextMenu> -->
+
+</ui:composition>

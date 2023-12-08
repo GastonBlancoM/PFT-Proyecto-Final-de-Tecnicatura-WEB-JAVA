@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>UTEC - Registro</title>
+	<h:outputStylesheet library="css" name="style_Registro.css" />
+</h:head>
+<h:body>
+	<section>
+
+	<div class="contenedor__registro">
+
+		<div class="contenedor_logo_utec">
+			<h:graphicImage
+				value="/resources/img/logoUTEC-simbolo-color-blanco.png"
+				styleClass="img_logo_utec" />
+		</div>
+
+		<h:form id="formulario__registro" class="formulario__registro">
+			<p:growl id="growl" showDetail="true" style="z-index: 1;" />
+			<h2>Registro de usuario</h2>
+
+
+			<div class="input_contenedor">
+
+				<div class="campo">
+					<p:inputText id="nombre" placeholder="Nombre"
+						value="#{gestionUsuario.usuarioSeleccionado.nombre}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:inputText id="apellido" placeholder="Apellido"
+						value="#{gestionUsuario.usuarioSeleccionado.apellido}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:inputText id="ci" placeholder="Documento de identidad"
+						value="#{gestionUsuario.usuarioSeleccionado.documento}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:datePicker class="calendar" id="fechaNac" locale="es"
+						placeholder="Fecha de nacimiento" monthNavigator="true"
+						yearNavigator="true" yearRange="#{gestionUsuario.yearRange}"
+						value="#{gestionUsuario.usuarioSeleccionado.fechaNacimiento}">
+
+						<p:autoUpdate />
+					</p:datePicker>
+				</div>
+
+				<div class="campo">
+					<p:inputText id="mail" placeholder="Correo personal"
+						value="#{gestionUsuario.usuarioSeleccionado.mail}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:inputText id="mail_inst" placeholder="Correo institucional"
+						value="#{gestionUsuario.usuarioSeleccionado.mailInstitucional}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:inputText id="telefono" placeholder="Teléfono"
+						value="#{gestionUsuario.usuarioSeleccionado.telefono}">
+
+						<p:autoUpdate />
+					</p:inputText>
+				</div>
+
+				<div class="campo">
+					<p:selectOneMenu id="genero" placeholder="Genero"
+						styleClass="anchoComboBox"
+						value="#{gestionUsuario.usuarioSeleccionado.genero}">
+
+						<f:selectItem itemValue="#{null}" itemLabel="Genero" />
+						<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+						<f:selectItem itemValue="Femenino" itemLabel="Femenino" />
+						<f:selectItem itemValue="Otro" itemLabel="Otro" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="campo">
+					<p:selectOneMenu id="tipoUsuario" placeholder="Tipo de Usuario"
+						styleClass="anchoComboBox"
+						value="#{gestionUsuario.tipoUsuarioSeleccionado}">
+
+						<f:selectItem itemValue="#{null}" itemLabel="Tipo de usuario" />
+						<f:selectItem itemValue="Analista" itemLabel="Analista" />
+						<f:selectItem itemValue="Estudiante" itemLabel="Estudiante" />
+						<f:selectItem itemValue="Tutor" itemLabel="Tutor" />
+						<p:ajax
+						
+							listener="#{gestionUsuario.menuItemChanged(gestionUsuario.tipoUsuarioSeleccionado)}"
+							update="opsTutores opsEstudiantes" ignoreAutoUpdate="true" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="campo">
+					<p:selectOneMenu id="itr" styleClass="anchoComboBox"
+						value="#{gestionUsuario.idItrSeleccionado}" autoWidth="false">
+						<f:selectItem itemValue="#{-1}" itemLabel="ITR" />
+						<f:selectItems value="#{gestionUsuario.cargarListaItr()}"
+							var="itr" itemLabel="#{itr.nombre}" itemValue="#{itr.idItr}" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="campo">
+					<p:selectOneMenu id="departamento" styleClass="anchoComboBox"
+						value="#{gestionUsuario.idDepartamentoSeleccionado}"
+						autoWidth="false">
+						<f:selectItem itemValue="#{-1}" itemLabel="Departamento" />
+						<f:selectItems value="#{gestionUsuario.cargarListaDepartamento()}"
+							var="departamento" itemLabel="#{departamento.nombre}"
+							itemValue="#{departamento.idDepartamento}" />
+						<p:ajax listener="#{gestionUsuario.cargarListaLocalidades()}"
+							update="localidad panelLocalidades" ignoreAutoUpdate="true" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="campo">
+					<h:panelGroup id="panelLocalidades">
+						<p:selectOneMenu id="localidad"
+							rendered="#{gestionUsuario.verComboLocalidades}"
+							styleClass="anchoComboBox"
+							value="#{gestionUsuario.idLocalidadSeleccionada}"
+							autoWidth="false">
+							<f:selectItem itemValue="#{-1}" itemLabel="Localidad" />
+							<f:selectItems value="#{gestionUsuario.listaLocalidades}"
+								var="localidad" itemLabel="#{localidad.nombre}"
+								itemValue="#{localidad.idLocalidad}" />
+							<p:autoUpdate />
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</div>
+
+				<div class="campo">
+					<p:password id="contrasenia" placeholder="Contraseña"
+						toggleMask="true"
+						value="#{gestionUsuario.usuarioSeleccionado.contrasenia}" />
+
+				</div>
+
+				<div class="campo">
+					<h:panelGroup id="opsEstudiantes">
+
+						<p:selectOneMenu id="añoIngreso" styleClass="anchoComboBox"
+							placeholder="Seleccione el Año de ingreso" filter="true"
+							filterMatchMode="startsWith" autoWidth="false"
+							value="#{gestionUsuario.estudianteSeleccionado.añoIngreso}"
+							rendered="#{gestionUsuario.renderInputEstudiante}">
+
+							<f:selectItem itemValue="" itemLabel="Año de ingreso" />
+							<f:selectItems var="año" itemLabel="#{año}" itemValue="#{año}"
+								value="#{gestionUsuario.cargarListaAños()}" />
+							<p:autoUpdate />
+
+
+						</p:selectOneMenu>
+
+						<div class="campo">
+
+
+							<p:selectOneMenu id="areaTutor" placeholder="Area de trabajo"
+								styleClass="anchoComboBox"
+								value="#{gestionUsuario.tutorSeleccionado.area}"
+								rendered="#{gestionUsuario.renderInputTutor}">
+
+								<f:selectItem itemValue="#{null}" itemLabel="Area" />
+								<f:selectItem itemValue="Programación" itemLabel="Programacion" />
+								<f:selectItem itemValue="Base de datos"
+									itemLabel="Base de datos" />
+								<f:selectItem itemValue="Testing" itemLabel="Testing" />
+								<f:selectItem itemValue="Infraestructura"
+									itemLabel="Infraestructura" />
+								<p:autoUpdate />
+							</p:selectOneMenu>
+						</div>
+					</h:panelGroup>
+				</div>
+
+				<h:panelGroup id="opsTutores">
+
+					<div class="campo">
+						<p:selectOneMenu id="rolTutor" placeholder="Rol en el Area"
+							styleClass="anchoComboBox"
+							value="#{gestionUsuario.nombreRolTutorSeleccionado}"
+							rendered="#{gestionUsuario.renderInputTutor}">
+
+							<f:selectItem itemValue="#{null}" itemLabel="Seleccione un Rol" />
+							<f:selectItem itemValue="Encargado" itemLabel="Encargado" />
+							<f:selectItem itemValue="Tutor" itemLabel="Tutor" />
+							<p:autoUpdate />
+						</p:selectOneMenu>
+					</div>
+				</h:panelGroup>
+
+
+
+
+
+			</div>
+
+			<div class="button_contenedor">
+				<div></div>
+				<div></div>
+				<div></div>
+				<p:commandButton styleClass="button" value="Regístrarse"
+					action="#{gestionUsuario.registrarUsuario()}" update="growl"
+					process="@form">
+				</p:commandButton>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div class="op_registrar">
+					<p>
+						¿Ya tienes una cuenta?
+						<h:commandLink value="Iniciar sesión"
+							action="#{navController.irLogin()}"></h:commandLink>
+					</p>
+				</div>
+
+
+
+
+			</div>
+		</h:form>
+	</div>
+
+	</section>
+</h:body>
+</html>

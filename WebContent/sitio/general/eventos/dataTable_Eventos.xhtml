@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dataTable id="dataTableEvento" value="#{gestionEvento.listaEventos}"
+		class="my-table" var="evento" widgetVar="lista_eventos_registrados"
+		emptyMessage="No se encontraron Eventos"
+		globalFilterFunction="#{gestionEvento.globalFilterFunctionEvento}"
+		editable="true" rowKey="#{evento.idEvento}" scrollable="true"
+		scrollHeight="800">
+
+		<f:facet name="header">
+			<div class="flex justify-content-end"
+				style="display: flex; justify-content: space-between;">
+				
+				<p:inputText id="globalFilter"
+					onkeyup="PF('lista_eventos_registrados').filter()"
+					style="width:300px" placeholder="Buscar evento" />
+					
+				<p:selectOneMenu id="estadoFilter"
+					value="#{gestionEvento.estadoFilter}" style="margin-left:10px;"
+					>
+					<f:selectItem itemValue="#{null}" itemLabel="Todos" />
+					<f:selectItem itemValue="FINALIZADO" itemLabel="Finalizado" />
+					<f:selectItem itemValue="CORRIENTE" itemLabel="Corriente" />
+					<f:selectItem itemValue="FUTURO" itemLabel="Futuro" />
+					<p:ajax listener="#{gestionEvento.refreshListaPorFiltro()}">
+					</p:ajax>
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu id="modalidadFilter" styleClass="anchoComboBox" style="margin-left:10px;"
+					value="#{gestionEvento.modalidadFilter}" >
+					<f:selectItem itemValue="#{null}" itemLabel="Modalidad" />
+					<f:selectItem itemValue="HIBRIDO" itemLabel="Hibrido" />
+					<f:selectItem itemValue="PRESENCIAL" itemLabel="Presencial" />
+					<f:selectItem itemValue="VIRTUAL" itemLabel="Virtual" />
+				
+					<p:ajax listener="#{gestionEvento.refreshListaPorFiltro()}">
+					</p:ajax>
+				</p:selectOneMenu>
+				
+				<p:commandButton title="Actualizar" icon="pi pi-refresh"
+					style="margin-left:auto; margin-right: 10px;"
+					styleClass="rounded-button ui-button-outlined" 
+					action="#{gestionEvento.refreshListaEventos()}"/>
+					
+				<p:commandButton icon="pi pi-plus" value="Nuevo"
+					oncomplete="PF('dialogRegistrarEvento').show()"
+					styleClass="ui-button-outlined ui-button-success"
+					 />
+				<p:autoUpdate />
+			</div>
+		</f:facet>
+
+		<p:column headerText="Título" sortBy="#{evento.titulo}" >
+			<h:outputText value="#{evento.titulo}" />
+		</p:column>
+		<p:column headerText="Tipo">
+			<p:chip>
+				<h:outputText value="#{evento.tipoEvento.nombre}" />
+			</p:chip>
+		</p:column>
+		<p:column headerText="Inicio">
+			<p:chip>
+				<h:outputText value="#{evento.fechaInicio}" />
+			</p:chip>
+		</p:column>
+
+		<p:column headerText="Fin">
+			<p:chip>
+				<h:outputText value="#{evento.fechaFin}" />
+			</p:chip>
+		</p:column>
+
+		<p:column headerText="ITR">
+			<p:chip>
+				<h:outputText value="#{evento.itr.nombre}" />
+			</p:chip>
+		</p:column>
+
+		<!-- <p:column headerText="Semestes">
+			<p:chip>
+				<h:outputText
+					value="#{gestionEvento.cargarColumnaSemestre(evento)}" />
+			</p:chip>
+		</p:column> -->
+
+		<p:column headerText="Tutores">
+			<p:chip>
+				<h:outputText
+					value="#{gestionEvento.cargarColumnaTutores(evento.idEvento)}" />
+			</p:chip>
+		</p:column>
+
+		<p:column headerText="Modalidad">
+			<p:tag styleClass="ui-tag-rounded">
+				<h:outputText value="#{evento.modalidad.nombre}" />
+			</p:tag>
+		</p:column>
+
+		<p:column headerText="Estado">
+			<p:tag styleClass="ui-tag-rounded">
+				<h:outputText value="#{evento.estadoEvento.nombre}" />
+			</p:tag>
+		</p:column>
+
+		<p:column exportable="false" style="width:85px;">
+		<!-- MODIFICAR-->
+			<p:commandButton icon="pi pi-pencil"
+				action="#{gestionEvento.seleccionarEvento(evento)}"
+				oncomplete="PF('dialogModificarEvento').show()"
+				update=":dialogs:dialogModificarEventoContent"
+				styleClass="rounded-button ui-button-outlined"
+				rendered = "#{navController.analista}"
+				style="margin-right: 5px;">
+			</p:commandButton>
+
+		<!-- BAJA -->
+			<p:commandButton icon="pi pi-trash"
+				action="#{gestionEvento.eliminarEvento(evento.idEvento)}"
+				styleClass="rounded-button ui-button-danger ui-button-outlined"
+				disabled="#{evento.estadoEvento == 'FINALIZADO'}"
+				rendered = "#{navController.analista}"
+				style="margin-right: 5px;">
+				<p:confirm icon="pi pi-info-circle" header="Confirmación"
+					message="Deseas desactivar el evento: #{evento.titulo}?" />
+			</p:commandButton>
+			
+		<!-- CONVOCAR-->
+			<p:commandButton icon="pi pi-megaphone"
+				action="#{gestionConvocatoria.seleccionarEvento(evento)}"
+				oncomplete="PF('dialogConvocarEstudiantes').show()"
+				update=":dialogs:dialogConvocarEstudiantesContent"
+				styleClass="rounded-button ui-button-outlined"
+				rendered = "#{navController.analista}"
+				disabled="#{evento.estadoEvento == 'FINALIZADO'}">
+				
+			</p:commandButton>	
+		</p:column>
+	</p:dataTable>
+
+</ui:composition>

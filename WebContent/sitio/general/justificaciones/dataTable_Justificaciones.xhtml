@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<p:dataTable id="justificacionDataTable"
+		value="#{gestionJustificacion.listaJustificaciones}"
+		var="justificacion" widgetVar="lista_justificaciones"
+		emptyMessage="No se encontraron Justificaciones de Inasistencia"
+		editable="true" rowKey="#{justificacion.idJustificacion}"
+		globalFilterFunction="#{gestionJustificacion.globarlFilterFunctionJustificaciones}"
+		class="my-table" scrollable="true" scrollHeight="800" border="1">
+
+		<f:facet name="header">
+			<div class="flex justify-content-end" style="display: flex;">
+				<p:inputText id="globalFilter"
+					onkeyup="PF('lista_justificaciones').filter()" style="width:300px"
+					placeholder="Buscar" />
+				<p:selectOneMenu id="estadoFilter"
+					value="#{gestionJustificacion.estadoFilter}"
+					style="margin-left:30px;"
+					onchange="PF('lista_justificaciones').filter()">
+					<f:selectItem itemValue="#{null}" itemLabel="Selecc. Estado" />
+					<f:selectItem itemValue="EN_PROCESO" itemLabel="En proceso" />
+					<f:selectItem itemValue="FINALIZADO" itemLabel="Finalizado" />
+					<f:selectItem itemValue="INGRESADO" itemLabel="Ingreasaso" />
+					<p:ajax
+						listener="#{gestionJustificacion.rechargeListaJustificaciones()}" />
+				</p:selectOneMenu>
+
+				<p:commandButton title="Actualizar" icon="pi pi-refresh"
+					action="#{gestionJustificacion.rechargeListaJustificaciones()}"
+					style="margin-left:auto;"
+					styleClass="rounded-button ui-button-outlined" />
+
+			</div>
+		</f:facet>
+		<p:column headerText="Id" sortBy="#{justificacion.idJustificacion}"
+			rendered="#{gestionJustificacion.render.analista}"
+			style="width:40px;">
+			<h:outputText value="#{justificacion.idJustificacion}" />
+		</p:column>
+		<p:column headerText="Estudiante"
+			rendered="#{not gestionJustificacion.render.estudiante}"
+			sortBy="#{justificacion.estudiante.documento}">
+			<h:outputText value="#{justificacion.estudiante.documento}" />
+		</p:column>
+		<p:column headerText="Evento"
+			sortBy="#{justificacion.evento.idEvento}">
+			<h:outputText value="#{justificacion.evento.titulo}" />
+		</p:column>
+		<p:column headerText="Fecha" sortBy="#{justificacion.fechaHora}">
+			<h:outputText
+				value="#{of:formatDate(justificacion.fechaHora, 'dd/MM/yyyy')}" />
+		</p:column>
+		<p:column headerText="Hora">
+			<h:outputText
+				value="#{of:formatDate(justificacion.fechaHora, 'HH:mm')}" />
+		</p:column>
+		<p:column headerText="Estado"
+			sortBy="#{justificacion.estadoJustificacion.nombre}">
+			<h:outputText value="#{justificacion.estadoJustificacion.nombre}" />
+		</p:column>
+
+		<p:column exportable="false">
+			<!--DETALLE-->
+			<p:commandButton title="Detalles" icon="pi pi-align-justify"
+				action="#{gestionJustificacion.selectJustificacion(justificacion)}"
+				oncomplete="PF('dialogDetalleJustificacion').show()"
+				update=":dialogs:dialogDetalleJustificacionContent"
+				styleClass="rounded-button ui-button-outlined"
+				style="margin-right: 5px;">
+			</p:commandButton>
+
+			<!--MODIFICAR-->
+			<p:commandButton title="Modificar justificación" icon="pi pi-pencil"
+				oncomplete="PF('dialogModificarJustificacion').show()"
+				action="#{gestionJustificacion.selectJustificacion(justificacion)}"
+				styleClass="rounded-button ui-button-outlined"
+				update=":dialogs:dialogModificarJustificacionContent"
+				style="margin-right: 5px;" rendered="#{navController.estudiante}" />
+
+			<!--ELIMINAR-->
+			<p:commandButton title="Eliminar justificación" icon="pi pi-trash"
+				action="#{gestionJustificacion.delete(justificacion.idJustificacion)}"
+				styleClass="rounded-button ui-button-danger ui-button-outlined"
+				rendered="#{navController.estudiante}" style="margin-right: 5px;">
+				<p:confirm icon="pi pi-info-circle" header="Confirmación"
+					message="¿Está seguro de que desea eliminar la Justificacion de Inasistencia?" />
+			</p:commandButton>
+
+			<!-- ACCION -->
+			<p:commandButton title="Atender justificación" icon="pi pi-send"
+				oncomplete="PF('dialogAccionJustificacion').show()"
+				action="#{gestionJustificacion.selectJustificacion(justificacion)}"
+				styleClass="rounded-button ui-button-outlined"
+				update=":dialogs:dialogAccionJustificacionContent"
+				rendered="#{navController.analista}" />
+		</p:column>
+
+	</p:dataTable>
+
+
+
+</ui:composition>

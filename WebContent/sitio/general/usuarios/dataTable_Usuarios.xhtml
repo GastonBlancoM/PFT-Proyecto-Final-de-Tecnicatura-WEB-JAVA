@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="usuarios"
+		value="#{gestionListaUsuarios.listaUsuarios}" class="my-table"
+		var="usuario" widgetVar="lista_usuarios_registrados"
+		emptyMessage="No se encontraron Usuarios"
+		globalFilterFunction="#{gestionListaUsuarios.globalFilterFunction}"
+		editable="true" rowKey="#{usuario.idUsuario}" scrollable="true"
+		scrollHeight="500" border="1"><!-- stickyHeader="true" stickyTopAt=".header" -->
+
+		<f:facet name="header">
+			<div class="flex justify-content-end"
+				style="display: flex; justify-content: space-between;">
+				
+				<p:inputText id="globalFilter"
+					onkeyup="PF('lista_usuarios_registrados').filter()"
+					style="width:300px" placeholder="Buscar usuario" />
+				
+				<p:selectOneMenu
+				id="estadoFilter"
+				value="#{gestionListaUsuarios.estadoFilter}"
+				style="margin-left:30px;"
+				onchange="PF('lista_usuarios_registrados').filter()">
+				<f:selectItem itemValue="#{null}" itemLabel="Todos" />
+				<f:selectItem itemValue="ACTIVO" itemLabel="Activos" />
+				<f:selectItem itemValue="INACTIVO" itemLabel="Inactivos" />
+				<p:ajax listener="#{gestionListaUsuarios.refreshListaUsuarios(gestionListaUsuarios.estadoFilter)}"></p:ajax>
+			</p:selectOneMenu>
+				
+				<p:commandButton
+				title="Actualizar"
+				icon="pi pi-refresh"
+				action="#{gestionListaUsuarios.refreshListaUsuarios()}"
+				style="margin-left:auto; margin-right: 10px;"
+				styleClass="rounded-button ui-button-outlined"/>
+				
+				<p:commandButton value="Nuevo" icon="pi pi-plus"
+					update=":dialogs:dialogRegistrarUsuarioContent :seccion_lista_usuarios:growl"
+					action="#{gestionListaUsuarios.limpiarCampos()}"
+					oncomplete="PF('dialogRegistrarUsuario').show()"
+					styleClass="ui-button-outlined ui-button-success"
+					>
+					<p:resetInput target=":dialogs:dialogRegistrarUsuarioContent" />
+				</p:commandButton>
+				<p:autoUpdate />
+			</div>
+		</f:facet>
+
+		<p:column headerText="Id" sortBy="#{usuario.idUsuario}"
+			style="width:40px;">
+		#{usuario.idUsuario}
+	</p:column>
+
+		<p:column headerText="Nombre" sortBy="#{usuario.nombre}">#{usuario.nombre}</p:column>
+		<p:column headerText="Apellido" sortBy="#{usuario.apellido}">#{usuario.apellido}</p:column>
+		<p:column headerText="Documento">#{usuario.documento}</p:column>
+		<p:column headerText="ITR">#{usuario.itr.nombre}</p:column>
+		<p:column headerText="Rol">#{usuario.tipoUsuario.nombre}</p:column>
+		<p:column headerText="Verificación">#{usuario.verificacion.nombre}</p:column>
+		<p:column headerText="Estado">#{usuario.estadoUsuario.nombre}</p:column>
+
+		<p:column exportable="false" style="width:85px;">
+			<p:commandButton icon="pi pi-pencil"
+				update=":dialogs:dialogModificarUsuarioContent"
+				oncomplete="PF('dialogModificarUsuario').show()"
+				action="#{gestionListaUsuarios.seleccionarUsuario()}"
+				styleClass="rounded-button ui-button-outlined"
+				style="margin-right: 5px;">
+				<f:setPropertyActionListener value="#{usuario}"
+					target="#{gestionListaUsuarios.usuarioSeleccionado}" />
+			</p:commandButton>
+
+			<p:commandButton
+				styleClass="rounded-button ui-button-danger ui-button-outlined"
+				icon="pi pi-trash" process="@this"
+				action="#{gestionListaUsuarios.borrarUsuario(gestionListaUsuarios.usuarioSeleccionado.idUsuario)}">
+				<f:setPropertyActionListener value="#{usuario}"
+					target="#{gestionListaUsuarios.usuarioSeleccionado}" />
+				<p:confirm header="Confirmación"
+					message="Deseas desactivar el usuario: #{usuario.nombre} #{usuario.apellido}?"
+					icon="pi pi-info-circle" />
+			</p:commandButton>
+		</p:column>
+	</p:dataTable>
+	
+	<p:selectOneMenu 
+			id="generacionFiltro"
+			styleClass="anchoComboBox"
+			placeholder="Filtro Generación"
+			value="#{gestionListaUsuarios.genFilter}"
+			autoWidth="false">
+			<f:selectItem itemValue="-1" itemLabel="Seleccione la generación" />
+			<f:selectItems
+				value="#{gestionUsuario.cargarFiltroGen()}"
+				var="generacion"
+				itemLabel="#{generacion}"
+				itemValue="#{generacion}"/>
+			<p:autoUpdate/>
+		</p:selectOneMenu>
+	
+	<p:commandButton
+		value="Filtrar"
+		icon="pi pi-plus"
+		action="#{gestionListaUsuarios.filtrarPorGen()}"
+		styleClass="ui-button-info" style="margin-left:10px; margin-right: .5rem; margin-top: 10px;">
+	</p:commandButton>
+</ui:composition>

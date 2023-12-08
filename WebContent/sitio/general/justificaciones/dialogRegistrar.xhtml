@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dialog id="dialogRegistrarJustificacion" header="Justificación de Inasistencia"
+		showEffect="fade" modal="true" widgetVar="dialogRegistrarJustificacion"
+		responsive="true" blockScroll="true" draggable="false">
+
+		<p:panelGrid id="dialogRegistrarJustificacionContent" class="ui-fluid"
+			columns="1">
+
+			<h:panelGroup>
+				<p:outputLabel value="Justificar inasistencia a #{gestionJustificacion.selectConvocatoria.evento.titulo}" >
+				<p:autoUpdate />
+				</p:outputLabel>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Detalle" />
+				<p:inputTextarea
+					id="detalleRegistroJustificacion"
+					value="#{gestionJustificacion.newJust.detalle}"/>
+			</h:panelGroup>
+
+		</p:panelGrid>
+		<f:facet name="footer">
+			<p:commandButton value="Ingresar" icon="pi pi-check"
+				action="#{gestionJustificacion.create()}">
+				<p:confirm icon="pi pi-info-circle" header="Confirmación"
+					message="¿Confirmas el ingreso de esta justificación?" />
+				</p:commandButton>
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogModificarJustificacion').hide()"
+				action="#{gestionJustificacion.limpiarCampos()}"
+				class="ui-button-secondary" type="button" />
+		</f:facet>
+	</p:dialog>
+	
+
+</ui:composition>

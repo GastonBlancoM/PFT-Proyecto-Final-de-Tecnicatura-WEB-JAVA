@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/sitio/template_General.xhtml">
+
+	<ui:define name="main_content">
+		<div class="main" style="z-index: 1;">
+			<h:form styleClass="seccion_datos seccion_lista" id="seccion_datos">
+
+				<p:growl id="growl" showDetail="true" style="z-index: 1;" />
+				<h2>Perfil del usuario</h2>
+				<br />
+				<br />
+				<p:panelGrid columns="4" id="panelModificarPerfilContent"
+					columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+
+					<p:row styleClass="my-heading-row">
+            		Detalles personales
+        			</p:row>
+
+					<!-- <h:panelGroup styleClass="field"> -->
+					<h:outputLabel value="Nombres: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.nombre}"
+						 />
+
+					<!-- </h:panelGroup>
+ -->
+					<!-- <h:panelGroup styleClass="field"> -->
+					<h:outputLabel value="Apellidos: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.apellido}"
+						/>
+
+					<!-- </h:panelGroup> -->
+
+					<h:outputLabel value="Ciudad: " styleClass="bold-text" />
+					<h:outputLabel
+						value="#{gestionPerfilUsuario.usuario.departamento.nombre}"
+						/>
+
+					<h:outputLabel value="Fecha nacimiento: " styleClass="bold-text" />
+					<h:outputLabel
+						value="#{gestionPerfilUsuario.convertirFechaNac(gestionPerfilUsuario.usuario.fechaNacimiento)}"
+						 />
+
+					<h:outputLabel value="Cédula de identidad: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.documento}"
+						 />
+
+					<!-- <h:panelGroup styleClass="field"> -->
+					<h:outputLabel value="Email personal: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.mail}"
+						 />
+
+					<!-- </h:panelGroup> -->
+
+					<!-- <h:panelGroup styleClass="field"> -->
+					<h:outputLabel value="Teléfono: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.telefono}"
+						/>
+
+					<!-- </h:panelGroup> -->
+
+
+
+					<!-- <h:panelGroup styleClass="field"> -->
+					<h:outputLabel value="Genero: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.genero}"
+						 />
+
+					<!-- </h:panelGroup> -->
+
+					<p:row styleClass="my-heading-row">
+            		Detalles institucionales
+        			</p:row>
+
+					<h:outputLabel value="Tipo usuario: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.tipoUsuario}"
+						 />
+
+					<h:outputLabel value="Año ingreso: " styleClass="bold-text"
+						rendered="#{navController.estudiante}" />
+					<h:outputLabel
+						value="#{gestionPerfilUsuario.estudianteLogueado.añoIngreso}"
+						 rendered="#{navController.estudiante}" />
+
+					<h:outputLabel value="Área laboral: " styleClass="bold-text"
+						rendered="#{navController.tutor}" />
+					<h:outputLabel value="#{gestionPerfilUsuario.tutorLogueado.area}"
+						 rendered="#{navController.tutor}" />
+
+					<h:outputLabel value="Rol en el área: " styleClass="bold-text"
+						rendered="#{navController.tutor}" />
+					<h:outputLabel
+						value="#{gestionPerfilUsuario.tutorLogueado.rolTutor}"
+						rendered="#{navController.tutor}" />
+
+					<h:outputLabel value="Email académico: " styleClass="bold-text" />
+					<h:outputLabel
+						value="#{gestionPerfilUsuario.usuario.mailInstitucional}"
+						 />
+
+					<h:outputLabel value="ITR: " styleClass="bold-text" />
+					<h:outputLabel value="#{gestionPerfilUsuario.usuario.itr.nombre}"
+						/>
+
+
+					<p:row styleClass="my-button-row">
+						<p:column styleClass="ui-grid-col-12"><!--  -->
+							<p:commandButton value="Modificar" icon="pi pi-pencil"
+								update="seccion_datos:growl"
+								onclick="PF('dialogModificarPerfil').show()"
+								styleClass="ui-button-outlined ui-button-success mr-2"
+								style="width: auto "><!--  -->
+
+							</p:commandButton>
+							<p:autoUpdate />
+							
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+			<h:form id="dialogs">
+				<ui:include src="/sitio/general/perfil/dialogModificarPerfil.xhtml" />
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

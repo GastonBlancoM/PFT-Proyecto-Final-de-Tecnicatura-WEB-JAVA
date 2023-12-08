@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dialogModificarItr" header="Modificar Itr"
+		showEffect="fade" modal="true" widgetVar="dialogModificarItr"
+		responsive="true">
+		<p:outputPanel id="dialogModificarItrContent" class="ui-fluid">
+			<p:outputPanel>
+				<div class="field">
+					<p:outputLabel>Nombre</p:outputLabel>
+					<p:inputText id="nombre"
+						value="#{gestionListaItr.itrSeleccionado.nombre}" />
+				</div>
+
+				<div class="field">
+					<p:outputLabel>Departamento</p:outputLabel>
+					<p:selectOneMenu id="departamento"
+						value="#{gestionListaItr.idDeptoSelect}"
+						styleClass="anchoComboBox">
+						<f:selectItem itemValue="#{null}"
+							itemLabel="Seleccione un Departamento" />
+						<f:selectItems value="#{gestionListaItr.listaDepartamentos}"
+							var="departamento" itemValue="#{departamento.idDepartamento}"
+							itemLabel="#{departamento.nombre}" />
+						<p:ajax
+							listener="#{gestionListaItr.cargarListaLocalidades(gestionListaItr.idDeptoSelect)}"
+							update="localidad" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field">
+					<p:outputLabel>Localidad</p:outputLabel>
+					<p:selectOneMenu id="localidad"
+						value="#{gestionListaItr.idLocalidadSelect}"
+						styleClass="anchoComboBox">
+						<f:selectItem itemValue="#{null}"
+							itemLabel="Seleccione una Localidad" />
+						<f:selectItems value="#{gestionListaItr.listaLocalidades}"
+							var="localidad" itemValue="#{localidad.idLocalidad}"
+							itemLabel="#{localidad.nombre}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="field">
+					<p:outputLabel>Estado</p:outputLabel>
+					<p:selectOneMenu id="estadoItr" styleClass="anchoComboBox"
+						value="#{gestionListaItr.itrSeleccionado.estado}">
+						<f:selectItem itemValue="#{null}" itemLabel="Seleccione un Estado" />
+						<f:selectItem itemValue="ACTIVADO" itemLabel="Activado" />
+						<f:selectItem itemValue="DESACTIVADO" itemLabel="Desactivado" />
+						<p:autoUpdate />
+					</p:selectOneMenu>
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<f:facet name="footer">
+			<p:commandButton value="Aplicar cambios" icon="pi pi-check"
+				action="#{gestionListaItr.modificarItr()}" />
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogModificarItr').hide()"
+				action="#{gestionListaItr.limpiarCampos()}" class="ui-button-secondary"
+				type="button" />
+		</f:facet>
+	</p:dialog>
+
+</ui:composition>

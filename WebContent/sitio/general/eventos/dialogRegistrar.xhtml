@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+	<p:dialog id="dialogRegistrarEvento" header="Registrar Evento"
+		showEffect="fade" modal="true" widgetVar="dialogRegistrarEvento"
+		responsive="true" blockScroll="true" draggable="false" resizable="false">
+
+		<p:panelGrid id="dialogRegistrarEventoContent" class="ui-fluid"
+			columns="4">
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Título" />
+				<p:inputText id="tituloRegistro"
+					value="#{gestionEvento.eventoNuevo.titulo}"
+					placeholder="Título del evento">
+
+					<p:autoUpdate />
+				</p:inputText>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Tipo de evento" />
+				<p:selectOneMenu id="tipoEventoRegistro" styleClass="anchoComboBox"
+					value="#{gestionEvento.eventoNuevo.tipoEvento}">
+					<f:selectItem itemValue="#{null}" itemLabel="Tipo evento" />
+					<f:selectItem itemValue="EXAMEN" itemLabel="Exámen" />
+					<f:selectItem itemValue="JORNADA_PRESENCIAL"
+						itemLabel="Jornada presencial" />
+					<f:selectItem itemValue="PRUEBA_FINAL" itemLabel="Prueba final" />
+					<f:selectItem itemValue="DEFENSA_DE_PROYECTO"
+						itemLabel="defensa de proyecto" />
+					<f:selectItem itemValue="EVENTO_VME" itemLabel="Evento VME" />
+					<f:selectItem itemValue="ACTIVIDAD_OPTATIVA"
+						itemLabel="Actividad optativa" />
+					<f:selectItem itemValue="ACTIVIDAD_APE" itemLabel="Actividad APE" />
+
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Modalidad" />
+				<p:selectOneMenu id="modalidadRegistro" styleClass="anchoComboBox"
+					value="#{gestionEvento.eventoNuevo.modalidad}">
+					<f:selectItem itemValue="#{null}" itemLabel="Modalidad" />
+					<f:selectItem itemValue="HIBRIDO" itemLabel="Hibrido" />
+					<f:selectItem itemValue="PRESENCIAL" itemLabel="Presencial" />
+					<f:selectItem itemValue="VIRTUAL" itemLabel="Virtual" />
+
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="ITR" />
+				<p:selectOneMenu id="itrRegistro" styleClass="anchoComboBox"
+					value="#{gestionEvento.idItrSeleccionado}" autoWidth="false">
+					<f:selectItem itemValue="#{-1}" itemLabel="ITR" />
+					<f:selectItems value="#{gestionEvento.cargarListaItr()}" var="itr"
+						itemLabel="#{itr.nombre}" itemValue="#{itr.idItr}" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<!-- <h:panelGroup>
+				<p:outputLabel for="@next" value="Semestres" />
+				<p:selectCheckboxMenu id="semestreRegistro" filter="true"
+					emptyLabel="Semestre" filterMatchMode="startsWith" multiple="true"
+					updateLabel="true" scrollHeight="250"
+					value="#{gestionEvento.listaSemestres}" styleClass="anchoComboBox">
+
+					<f:selectItems
+						value="#{gestionEvento.semestreService.obtenerTodos()}"
+						var="semestre" itemLabel="#{semestre.nombre}"
+						itemValue="#{semestre}" />
+					<p:autoUpdate />
+				</p:selectCheckboxMenu>
+			</h:panelGroup> -->
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Tutores" />
+				<p:selectCheckboxMenu id="tutorRegistro" filter="true"
+					emptyLabel="Tutor" filterMatchMode="startsWith" updateLabel="true"
+					scrollHeight="250" multiple="true"
+					value="#{gestionEvento.listaIdTutores}" styleClass="anchoComboBox">
+
+					<f:selectItems value="#{gestionEvento.cargarListaTutores()}"
+						var="tutor" itemLabel="#{tutor.nombre} #{tutor.apellido}"
+						itemValue="#{tutor.idUsuario}" />
+					<p:autoUpdate />
+				</p:selectCheckboxMenu>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Localización" />
+				<p:inputText id="localizacionRegistro"
+					value="#{gestionEvento.eventoNuevo.localizacion}"
+					placeholder="Localización" maxlength="200" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Inicio" />
+				<p:datePicker class="calendar" id="fechaInicioRegistro" locale="es"
+					placeholder="Inicio" monthNavigator="true" yearNavigator="true"
+					showTime="true" appendTo="@(body)"
+					value="#{gestionEvento.eventoNuevo.fecha_Hora_Inicio}">
+
+					<p:autoUpdate />
+				</p:datePicker>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Fin" />
+				<p:datePicker class="calendar" id="fechaFinRegistro" locale="es"
+					placeholder="Fin" monthNavigator="true" yearNavigator="true"
+					showTime="true" appendTo="@(body)"
+					value="#{gestionEvento.eventoNuevo.fecha_Hora_Final}">
+
+					<p:autoUpdate />
+				</p:datePicker>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Créditos" />
+				<p:spinner id="creditosRegistro"
+					value="#{gestionEvento.eventoNuevo.creditos}" min="0" max="20"
+					rotate="true" modifyValueOnWheel="false">
+
+				</p:spinner>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<p:outputLabel for="@next" value="Información" />
+				<p:inputTextarea id="informacionRegistro" counter="displayRegistro"
+					maxlength="200" counterTemplate="{0} caracteres."
+					autoResize="false" value="#{gestionEvento.eventoNuevo.informacion}"
+					placeholder="Describa la información">
+					
+				</p:inputTextarea>
+				<h:outputText id="displayRegistro" class="block" />
+			</h:panelGroup>
+
+		</p:panelGrid>
+
+		<f:facet name="footer">
+			<p:commandButton value="Registrar" sicon="pi pi-check"
+				action="#{gestionEvento.registrarEvento()}" />
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogRegistrarEvento').hide()"
+				class="ui-button-secondary" stype="button" />
+
+		</f:facet>
+
+	</p:dialog>
+
+</ui:composition>

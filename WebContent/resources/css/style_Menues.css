@@ -1,0 +1,311 @@
+@charset "ISO-8859-1";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+
+* {
+	margin: 0;
+	padding: 0;
+	/*box-sizing: border-box;*/
+	font-family: 'Nunito', sans-serif;
+	text-decoration: none;
+}
+
+/*Aca todo lo relacionado al HEADER*/
+
+.header .ui-menu.ui-menubar {
+	border-radius: 0px;
+	background: #00000073;
+	backdrop-filter: blur(15px);
+}
+
+.sticky-nav {
+	position: fixed;
+	width: 100%;
+}
+
+.header .ui-menu {
+	border: 0;
+	border-bottom: 2px solid rgb(0, 255, 255);
+
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link .ui-menuitem-text {
+	color: #ffffff;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-text {
+	color: #ffffff;
+	border-bottom: 2px solid rgba(0, 255, 255);
+}
+
+.header .ui-menu .ui-menu-list .ui-menu-child {
+	background: #fff;
+	padding: 0.25rem 0;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link {
+	background: #04040400;
+	border-bottom: 0;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover {
+	background: #04040400;
+	border-bottom: 0;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+	float: none;
+	vertical-align: middle;
+	color: #ffffff;
+}
+
+.header .ui-menu .ui-menu-list .ui-menu-child {
+	background: #898d95;
+}
+
+.header .ui-menu.ui-menubar>.ui-menu-list>.ui-menuitem.ui-menubar-options {
+
+	margin-top: 0.4em;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link .ui-icon {
+	color: #ffffff;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s:last-child {
+	color: #d9dde1;
+}
+
+.header .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
+	color: #d9dde1;
+}
+
+/*Aca todo lo relacionado al HEADER ^*/
+
+/*------------------------------------------------------------------------------------------*/
+
+/*Aca va todo lo relacionado a MAIN */
+.main {
+	background: #f0f0f0;
+	/*padding: 40px 20px;*/
+	/*margin-top: 50px;*/
+	/*background-image: url(img/background_main_grey_vectors.jpg);*/
+	/*background-repeat: no-repeat;*/
+	/*background-attachment: fixed;*/
+	/*background-size: cover;*/
+	overflow: hidden;
+}
+
+article {
+	width: 100%;
+	margin: 0px auto;
+	/*background: #fff;*/
+	/*background-image: url("#{resource['img/header_Bienvenida.png']}");
+	background-repeat: no-repeat;*/
+	/*border-radius: 0 12px;*/
+
+}
+
+article img {
+	border-style: none;
+	vertical-align: middle;
+}
+
+
+section {
+
+	max-width: 2000px;
+	margin: 0px auto;
+	padding: 30px;
+	border-top: 2px solid #00c7ff;
+	background: #474747d1;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	background-color: rgba(4, 12, 21, 0.5);
+
+	/*border-radius: 12px 0;*/
+
+}
+
+section h2 {
+	color: white;
+	text-decoration: underline;
+	text-decoration-color: #00c7ff;
+	text-decoration-thickness: 2px;
+
+}
+
+section p {
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: 300;
+	color: white;
+}
+
+/*Listas*/
+form.seccion_lista {
+	margin-top: 105px;
+	padding: 15px;
+}
+
+form.seccion_lista h2 {
+	color: #90caf9;
+	border-bottom: 2px solid #474747d1;
+	/*text-decoration: underline;
+	text-decoration-color: #474747d1;
+	text-decoration-thickness: 2px;*/
+}
+
+/*Aca va todo lo relacionado a MAIN ^*/
+
+/*------------------------------------------------------------------------------------------*/
+
+/*Aca va todo lo relacionado con el FOOTER*/
+
+.footer {
+	width: 100%;
+	padding: 20px 0px;
+	border-top: 2px solid #00c7ff;
+	background-color: #cacfd5;
+	/*background-color: #d0f0f8;
+    -webkit-mask-image: url("../Images/background-footer.svg");
+    mask-image: url("../Images/background-footer.svg");
+    -webkit-mask-size: cover;
+    mask-size: cover;*/
+}
+
+.contenedor_footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	max-width: 1200px;
+	margin: auto;
+}
+
+.caja_footer {
+	display: flex;
+	flex-direction: column;
+	padding: 40px;
+}
+
+.caja_footer .logo_footer img {
+	width: 125px;
+}
+
+.caja_footer .terminos {
+	max-width: 350px;
+	margin-top: 20px;
+	font-weight: 500;
+	color: #7a7a7a;
+	font-size: 18px;
+}
+
+.caja_footer h2 {
+	margin-bottom: 30px;
+	color: #343434;
+	font-weight: 700;
+}
+
+.caja_footer a {
+	margin-top: 10px;
+	color: #7a7a7a;
+	font-weight: 600;
+}
+
+.caja_footer a:hover {
+	opacity: 0.8;
+}
+
+.caja_footer a .fab {
+	font-size: 20px;
+}
+
+.caja_copyright {
+	max-width: 1200px;
+	margin: auto;
+	text-align: center;
+	padding: 0px 40px;
+}
+
+.caja_copyright p {
+	margin-top: 20px;
+	color: #7a7a7a;
+}
+
+.caja_copyright hr {
+	border: none;
+	height: 1px;
+	background-color: #7a7a7a;
+}
+
+/*Aca va todo lo relacionado con el FOOTER ^-------------------------*/
+
+/*Todo lo relacionado a lista de usuarios-------------------------------*/
+
+button#seccion_lista_usuarios\:usuarios\:j_idt149 {
+	margin-right: 0;
+}
+
+/*Todo lo relacionado a lista de usuarios^--------------------------------*/
+
+/*Aca todo lo relacionado a perfil de usuario------------------------------------*/
+
+/* reset on the showcase style*/
+body .ui-panelgrid .ui-panelgrid-cell {
+	background-color: transparent;
+}
+
+/* example use of styles for your form */
+
+.ui-grid .ui-grid-row .ui-grid-col-12 {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.my-heading-row {
+	background-color: #d3d9df;
+	font-weight: bold;
+}
+
+
+.bold-text {
+	font-weight: bold;
+}
+
+
+
+
+/*Aca todo lo relacionado a perfil de usuario^----------------------------------------------*/
+
+/*Estilos para botones de listas*/
+
+/*Perfil del usuario*/
+body .ui-button.ui-button-success.ui-button-outlined,
+body .ui-splitbutton.ui-button-success>.ui-button.ui-button-outlined,
+body .ui-menubutton.ui-button-success>.ui-button.ui-button-outlined {
+	background: #000000c7;
+	color: #90caf9;
+	border: 1px solid
+}
+
+body .ui-button.ui-button-success.ui-button-outlined.ui-state-hover,
+body .ui-splitbutton.ui-button-success>.ui-button.ui-button-outlined.ui-state-hover,
+body .ui-menubutton.ui-button-success>.ui-button.ui-button-outlined.ui-state-hover {
+	background-color: #90caf9;
+	color: #495057;
+	border: 1px solid;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+	border: 0;
+}
+
+/*Estilos para botones de listas^*/
+
+
+/*Aca todo lo relacionado a lista gestion de eventos-------------------------------------------------------*/
+#dialogRegistrarEventoContent .ui-panelgrid .ui-panelgrid-cell {
+	border: 0 none;
+}

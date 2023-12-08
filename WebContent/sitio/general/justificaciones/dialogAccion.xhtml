@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="Acción Justificación"
+		widgetVar="dialogAccionJustificacion" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<h:panelGroup id="dialogAccionJustificacionContent" styleClass="font">
+
+			<p:card style="width: 25rem; margin-bottom: 2em">
+
+				<p:outputLabel value="Estudiante: ">#{gestionJustificacion.selectJust.estudiante.nombre} #{gestionJustificacion.selectJust.estudiante.apellido}</p:outputLabel>
+				<br />
+				<br />
+				<p:outputLabel value="Documento: ">#{gestionJustificacion.selectJust.estudiante.documento}</p:outputLabel>
+				<br />
+				<br />
+				<p:outputLabel value="Documento: ">#{gestionJustificacion.selectJust.evento.titulo}</p:outputLabel>
+				<br />
+				<br />
+				<p:outputLabel value="Estado: ">#{gestionJustificacion.selectJust.estadoJustificacion.nombre.toString()}</p:outputLabel>
+				<br />
+				<br />
+				<p:outputLabel value="Fecha y hora: ">#{gestionJustificacion.selectJust.fechaHora}</p:outputLabel>
+				<br />
+				<br />
+				<p:outputLabel value="Detalle justificación: " />
+				<p>#{gestionJustificacion.selectJust.detalle}</p>
+				<br />
+				<br />
+			</p:card>
+			
+				<p:outputLabel value="Detalle acción*: " for="detalleAccion" />
+				<br />
+				<p:inputTextarea id="detalleAccion"
+					value="#{gestionJustificacion.accionJust.detalle}"
+					counter="displayAccion" maxlength="200"
+					counterTemplate="{0} caracteres." style="width: 400px; overflow-y: scroll;" onscroll="true"/>
+					<br />
+				<h:outputText id="displayAccion" class="block" />
+			
+		</h:panelGroup>
+		<f:facet name="footer">
+			<p:commandButton value="Guardar" icon="pi pi-check"
+				action="#{gestionJustificacion.accionCreate()}">
+				<p:confirm header="Confirmación"
+					message="Confirmas la acción en esta justificación?"
+					icon="pi pi-info-circle" />
+			</p:commandButton>
+		</f:facet>
+	</p:dialog>
+	<style>
+p {
+	line-height: 1.5;
+	margin: 0;
+}
+</style>
+
+</ui:composition>

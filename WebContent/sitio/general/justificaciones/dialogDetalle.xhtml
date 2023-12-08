@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<p:dialog header="Detalle Justificación"
+		widgetVar="dialogDetalleJustificacion" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<h:panelGroup id="dialogDetalleJustificacionContent" styleClass="font">
+
+			<p:card style="width: 25rem; margin-bottom: 2em">
+				
+				<p:outputLabel value="Estudiante: ">#{gestionJustificacion.selectJust.estudiante.nombre} #{gestionJustificacion.selectJust.estudiante.apellido}</p:outputLabel>
+				<br /><br />
+    			<p:outputLabel value="Documento: ">#{gestionJustificacion.selectJust.estudiante.documento}</p:outputLabel>
+				<br /><br />
+				<p:outputLabel value="Documento: ">#{gestionJustificacion.selectJust.evento.titulo}</p:outputLabel>
+				<br /><br />
+				<p:outputLabel value="Estado: ">#{gestionJustificacion.selectJust.estadoJustificacion.nombre.toString()}</p:outputLabel>
+				<br /><br />
+				<p:outputLabel value="Fecha y hora: ">#{of:formatDate(gestionJustificacion.selectJust.fechaHora, 'dd/MM/yyyy HH:mm')}</p:outputLabel>
+				<br /><br />
+				<p:outputLabel value="Detalle: "/>
+				<p >#{gestionJustificacion.selectJust.detalle}</p>
+
+			</p:card>
+		</h:panelGroup>
+	</p:dialog>
+	<style>
+p {
+	line-height: 1.5;
+	margin: 0;
+}
+</style>
+
+</ui:composition>

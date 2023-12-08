@@ -1,0 +1,134 @@
+@charset "ISO-8859-1";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('../img/background.jpg');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: 'Nunito', sans-serif;
+}
+
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 100vh;
+	background-image: url("#{resource['img/background.jpg']}");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;}
+
+.contenedor__registro {
+	position: relative;
+	width: 1000px;
+	
+	border: 2px solid rgba(33, 150, 243, .3);
+	backdrop-filter: blur(15px);
+	border-radius: 20px;
+	
+	height: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.contenedor__registro h2 {
+	font-size: 2.0rem;
+	color: #90caf9;
+	text-align: center;
+	margin: 20px 0px 0px 0px;
+	
+}
+
+.contenedor_logo_utec{
+	position: absolute;
+    top: -45px;
+    margin: 10px;
+}
+
+.img_logo_utec{
+	width: 70px;
+	
+}
+
+
+.input_contenedor {
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 50px 0 20px
+}
+
+.input_contenedor input, .input_contenedor .ui-selectonemenu {
+	background-color: transparent;
+	color: #fff;
+}
+
+.input_contenedor input::placeholder {
+    color: rgb(255, 255, 255); /* Cambia este valor al color deseado en formato hexadecimal o nombre de color */
+}
+
+.input_contenedor .ui-inputfield, .input_contenedor .ui-selectonemenu, .input_contenedor .p-datepicker{
+	color: white;
+	width: 100%;
+}
+
+.campo {
+    width: 100%;
+}
+
+.button_contenedor{
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.button{
+	width: 100%;
+	height: 45px;
+	border-radius: 20px;
+	border: none;
+	cursor: pointer;
+	outline: none;
+	font-size: 1rem;
+}
+
+.contenedor__registro .ui-button{
+	background: #1d2933;
+	border-color: #1d2933;
+	transition: 0.4s;
+}
+
+.op_registrar {
+	font-size: .8rem;
+	color: #fff;
+	text-align: center;
+	margin: 10px 0 5px;
+}
+
+.op_registrar p {
+	text-decoration: none;
+	color: #fff;
+}
+
+.op_registrar a  {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.0rem;
+}
+
+.op_registrar a:hover {
+	color: #90caf9;
+}
+
+/*campo password*/
+body .ui-input-icon-right {
+    display: inline;
+}

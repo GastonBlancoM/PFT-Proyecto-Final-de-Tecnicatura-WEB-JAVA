@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dialog header="Modificar perfil" showEffect="fade" modal="true"
+		widgetVar="dialogModificarPerfil" responsive="true">
+
+		<p:panelGrid id="dialogModificarPerfilsContent" class="ui-fluid"
+			columns="2">
+
+			<p:panel>
+				<p:outputLabel for="campoNombre" value="Nombre" />
+				<p:inputText id="campoNombre"
+					value="#{gestionPerfilUsuario.usuario.nombre}"
+					placeholder="#{gestionPerfilUsuario.usuario.nombre}" />
+			</p:panel>
+
+			<p:panel>
+				<p:outputLabel for="campoApellido" value="Apellido" />
+				<p:inputText id="campoApellido"
+					value="#{gestionPerfilUsuario.usuario.apellido}"
+					placeholder="#{gestionPerfilUsuario.usuario.apellido}" />
+			</p:panel>
+
+			<p:panel>
+				<p:outputLabel for="campoEmailPersonal" value="Email Personal" />
+				<p:inputText id="campoEmailPersonal"
+					value="#{gestionPerfilUsuario.usuario.mail}"
+					placeholder="#{gestionPerfilUsuario.usuario.mail}" />
+			</p:panel>
+
+			<p:panel>
+				<p:outputLabel for="campoTel" value="Teléfono" />
+				<p:inputText id="campoTel"
+					value="#{gestionPerfilUsuario.usuario.telefono}"
+					placeholder="#{gestionPerfilUsuario.usuario.telefono}" />
+			</p:panel>
+
+			<p:panel>
+				<p:outputLabel for="campoGen" value="Género" />
+				<p:selectOneMenu id="campoGen" placeholder="Genero"
+					styleClass="anchoComboBox"
+					value="#{gestionPerfilUsuario.usuario.genero}">
+					<f:selectItem itemValue="#{null}" itemLabel="Genero" />
+					<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+					<f:selectItem itemValue="FEMENINO" itemLabel="Femenino" />
+					<f:selectItem itemValue="OTRO" itemLabel="Otro" />
+					<p:autoUpdate />
+				</p:selectOneMenu>
+			</p:panel>
+
+		</p:panelGrid>
+
+
+		<f:facet name="footer">
+			<p:commandButton value="Aplicar cambios" icon="pi pi-check"
+				action="#{gestionPerfilUsuario.modificarDatosPropios()}" />
+			<p:commandButton value="Cancelar" icon="pi pi-times"
+				onclick="PF('dialogModificarPerfil').hide()"
+				class="ui-button-secondary" type="button" />
+
+		</f:facet>
+
+
+	</p:dialog>
+
+</ui:composition>

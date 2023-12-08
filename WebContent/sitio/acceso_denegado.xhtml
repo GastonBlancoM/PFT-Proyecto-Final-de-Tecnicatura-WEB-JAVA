@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link rel="Stylesheet" href="../hojaDeEstilos_AccessDenegate.css" />
+</h:head> 
+<h:body> 
+	
+	<div class="main">
+		<div class="contenedor__todo">
+
+			<div class="caja__trasera">
+				<div >
+					<h:form>
+						<h3>ERROR!</h3>
+						<p>Usted no cuenta con los permisos suficientes para acceder a este sitio</p>
+						<p:commandButton id="btn_voler" class="button"
+							value="Volver al inicio" action="mainContent_Principal.xhtml?faces-redirect=true"></p:commandButton>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</h:body> 
+</html>
